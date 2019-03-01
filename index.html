@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .scene-1 {
+            margin-left: 50px;
+            float: left;
+            width: 200px;
+            height: 260px;
+            perspective: 600px;
+        }
+        
+        .card {
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+            font-weight: bold;
+            color: aliceblue;
+            position: relative;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+            transform-origin: center right;
+        }
+        
+        .is-flipped {
+            transform: translateX(-100%) rotateY(-180deg);
+        }
+        
+        .card-face {
+            line-height: 260px;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+        }
+        
+        .card-face-front {
+            background: red;
+        }
+        
+        .card-face-back {
+            background: blue;
+            transform: rotateY(180deg);
+        }
+        
+        .scene {
+            width: 200px;
+            height: 200px;
+            perspective: 600px;
+            margin: 50px auto;
+        }
+        
+        .cude {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            /* transform: translateZ(-100px); */
+            transition: transform 1s;
+        }
+        
+        .cude-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+            line-height: 200px;
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+        }
+        
+        .cude-face-front {
+            transform: rotateY(0deg) translateZ(100px);
+            background: hsla( 0, 100%, 50%, 0.7);
+        }
+        
+        .cude-face-right {
+            transform: rotateY(90deg) translateZ(100px);
+            background: hsla( 120, 100%, 50%, 0.7);
+        }
+        
+        .cude-face-back {
+            transform: rotateY(180deg) translateZ(100px);
+            background: hsla( 60, 100%, 50%, 0.7);
+        }
+        
+        .cude-face-left {
+            transform: rotateY(-90deg) translateZ(100px);
+            background: hsla( 180, 100%, 50%, 0.7);
+        }
+        
+        .cude-face-top {
+            transform: rotateX(90deg) translateZ(100px);
+            background: hsla( 240, 100%, 50%, 0.7);
+        }
+        
+        .cude-face-bottom {
+            transform: rotateX(-90deg) translateZ(100px);
+            background: hsla( 300, 100%, 50%, 0.7);
+        }
+        
+        .cude.show-front {
+            transform: translateZ(-100px) rotateY( 0deg);
+        }
+        
+        .cude.show-right {
+            transform: translateZ(-100px) rotateY( -90deg);
+        }
+        
+        .cude.show-back {
+            transform: translateZ(-100px) rotateY(-180deg);
+        }
+        
+        .cude.show-left {
+            transform: translateZ(-100px) rotateY( 90deg);
+        }
+        
+        .cude.show-top {
+            transform: translateZ(-100px) rotateX( -90deg);
+        }
+        
+        .cude.show-bottom {
+            transform: translateZ(-100px) rotateX( 90deg);
+        }
+        
+        .radio-button-group {
+            width: 480px;
+            border: 1px rgb(81, 211, 211) solid;
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="scene-1">
+        <div class="card">
+            <div class="card-face card-face-front">front(click me)</div>
+            <div class="card-face card-face-back">back(click me)</div>
+        </div>
+    </div>
+    <script>
+        (function() {
+            var card = document.querySelector('.card');
+            card.addEventListener('click', function() {
+                card.classList.toggle('is-flipped');
+            })
+        })();
+    </script>
+    <!-- <script>
+        (function() {
+            var card = document.querySelector('.card');
+            card.addEventListener('click', function() {
+                card.classList.toggle('is-flipped');
+            })
+        }());
+    </script> -->
+    <div class="dome">
+        <div class="scene">
+            <div class="cude show-front">
+                <div class="cude-face cude-face-front">
+                    <font style="vertical-align: inherit;">front</font>
+                </div>
+                <div class="cude-face cude-face-back">
+                    <font style="vertical-align: inherit;">back</font>
+                </div>
+                <div class="cude-face cude-face-right">
+                    <font style="vertical-align: inherit;">right</font>
+                </div>
+                <div class="cude-face cude-face-left">
+                    <font style="vertical-align: inherit;">left</font>
+                </div>
+                <div class="cude-face cude-face-top">
+                    <font style="vertical-align: inherit;">top</font>
+                </div>
+                <div class="cude-face cude-face-bottom">
+                    <font style="vertical-align: inherit;">bottom</font>
+                </div>
+            </div>
+        </div>
+        <p class="radio-button-group">
+            <label><input type="radio" name="rotate-cube-side" value="front" checked> front</label>
+            <label><input type="radio" name="rotate-cube-side" value="right"> right</label>
+            <label><input type="radio" name="rotate-cube-side" value="back"> back</label>
+            <label><input type="radio" name="rotate-cube-side" value="left"> left</label>
+            <label><input type="radio" name="rotate-cube-side" value="top"> top</label>
+            <label><input type="radio" name="rotate-cube-side" value="bottom"> bottom</label>
+        </p>
+    </div>
+    <script>
+        (function() {
+            var demo = document.querySelector('.demo');
+            var cude = document.querySelector('.cude');
+            //var cude = demo.querySelector('.cude');
+            var currentClass = '';
+
+            function changeSide() {
+                var checkedRadio = document.querySelector(':checked');
+                var showClass = 'show-' + checkedRadio.value;
+                if (currentClass) {
+                    cude.classList.remove(currentClass);
+                }
+                cude.classList.add(showClass);
+                currentClass = showClass;
+            }
+            changeSide();
+
+            document.addEventListener('change', changeSide);
+        })();
+    </script>
+</body>
+
+</html>
